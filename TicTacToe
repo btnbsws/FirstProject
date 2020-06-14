@@ -1,0 +1,88 @@
+import os
+import sys
+
+def printTictacTo( matrix):
+    cnt=1
+    linestr='| '
+    for items in matrix:
+        linestr = linestr + items +' | '
+        if cnt%3 == 0 :
+            print ('|---|---|---|')
+            print (linestr)
+            linestr='| '
+        cnt += 1
+    print('|---|---|---|')
+
+def checkresulttictak(matrix):
+    t1 = [matrix[0], matrix[1], matrix[2]]
+    t2 = [matrix[3], matrix[4], matrix[5]]
+    t3 = [matrix[6], matrix[7], matrix[8]]
+    t4 = [matrix[0], matrix[3], matrix[6]]
+    t5 = [matrix[1], matrix[4], matrix[7]]
+    t6 = [matrix[2], matrix[5], matrix[8]]
+    t7 = [matrix[0], matrix[4], matrix[8]]
+    t8 = [matrix[6], matrix[4], matrix[2]]
+
+    l1=[t1,t2,t3,t4,t5,t6,t7,t8]
+    l1.sort()
+  #  print(l1)
+    result=False
+    for items in l1:
+        if items.count('X') == 3 or items.count('O') == 3  :
+            print("\nCongrats you are winner !! ")
+            result=True
+            break
+    return result
+def inputposition(player,char):
+    while True:
+        inputpos = input('\nPlease Enter Position for Player {} - [{}]: '.format(player, char))
+        try:
+            inputpos = int(inputpos)
+        except:
+            print("Invalid input !!")
+            continue
+        inputpos-= 1
+        if inputpos < 0 or inputpos > 9:
+            print ('Invalid index selected!!')
+        else:
+            if tictaklist[inputpos] == 'X' or tictaklist[inputpos] == 'O':
+                print ('Invalid position selected!!')
+            else:
+                tictaklist[inputpos] = char
+                break
+
+def getinputchar():
+    while True:
+        choseChar = input('\nPlease choose char for player 1 [X/O] :')
+        if choseChar == 'X' or choseChar == 'O':
+            choseCharSecond = 'X'
+            if choseChar == choseCharSecond:
+                choseCharSecond = 'O'
+            break
+        else:
+            print('\nInvalid character !! ')
+    return choseChar,choseCharSecond
+#Main
+
+while True:
+    tictaklist = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    tictaklistpos = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    print('\n!! *** WELCOME TO TIC TAC TOE , position details below *** !!\n')
+    printTictacTo(tictaklistpos)
+    choseChar, choseCharSecond = getinputchar()
+
+    nooftry = 1
+    while nooftry <= 9:
+        if nooftry % 2 == 0:
+            inputposition(2, choseCharSecond)
+        else:
+            inputposition(1, choseChar)
+        printTictacTo(tictaklist)
+        if checkresulttictak(tictaklist) == True:
+            break
+        nooftry += 1
+    if nooftry == 9 :
+        print ('\nMatch is TIE !!!')
+    i_continue=input('Wish to play again ? [Y/y] :')
+    if i_continue.lower() != 'y':
+        break
