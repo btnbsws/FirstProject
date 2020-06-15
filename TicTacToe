@@ -29,7 +29,6 @@ def checkresulttictak(matrix):
     result=False
     for items in l1:
         if items.count('X') == 3 or items.count('O') == 3  :
-            print("\nCongrats you are winner !! ")
             result=True
             break
     return result
@@ -69,6 +68,7 @@ while True:
     tictaklistpos = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     print('\n!! *** WELCOME TO TIC TAC TOE , position details below *** !!\n')
     printTictacTo(tictaklistpos)
+    choseName = input('\nPlease Enter Your name :')
     choseChar, choseCharSecond = getinputchar()
 
     nooftry = 1
@@ -78,10 +78,12 @@ while True:
         else:
             inputposition(1, choseChar)
         printTictacTo(tictaklist)
-        if checkresulttictak(tictaklist) == True:
+        o_result=checkresulttictak(tictaklist)
+        if o_result == True:
+            print("\nCongrats ,"+choseName+" is winner !! ")
             break
         nooftry += 1
-    if nooftry == 9 :
+    if (nooftry == 9 and o_result != True ):
         print ('\nMatch is TIE !!!')
     i_continue=input('Wish to play again ? [Y/y] :')
     if i_continue.lower() != 'y':
